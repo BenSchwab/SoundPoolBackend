@@ -130,15 +130,17 @@ app.get('/callback', function(req, res) {
         request.get(options, function(error, response, body) {
          console.log("Store the email address and auth token as a user, in mongo if not exist")
           user = body;
+          res.redirect('/playlists/'+user.id);
           console.log(user);
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
-          querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
-          }));
+
+        // res.redirect('/#' +
+        //   querystring.stringify({
+        //     access_token: access_token,
+        //     refresh_token: refresh_token
+        //   }));
       } else {
         res.redirect('/#' +
           querystring.stringify({
@@ -159,16 +161,22 @@ var spotifyApi = new SpotifyWebApi({
 });
 
 
-app.get('/playlists', function(req, res) {
-
-   spotifyApi.getUserPlaylists(user.id)
+app.get('/playlists/:id', function(req, res) {
+   var id = req.params.id;
+   console.log(id);
+   spotifyApi.getUserPlaylists(id)
   .then(function(data) {
-    console.log('Retrieved playlists', data.body);
+    //res.send("hello world of spotify");
+    //console.log('Retrieved playlists', data.body);
+    var playlists = data.body.items;
+    res.render('playlist', { playlists: playlists});
+    console.log(playlists);
   },function(err) {
+    res.send("Errored :(")
     console.log('Something went wrong!', err);
   });
 
-  res.send("hello world of spotify");
+
 
 });
 

@@ -1,0 +1,9 @@
+doctype html
+html( lang="en" )
+   include ./head.jade
+   body(style="padding:20px; background-image:url('images/girlmusic.jpg')" class = ['container'])
+      div(class = ['vertical-center'])
+         h1 Playlists
+         ul
+            each val in playlists
+               li= val.name
