@@ -1,15 +1,11 @@
+console.log("init user");
 var mongoose = require('mongoose');
-
 var Schema = mongoose.Schema;
 
-var SongSchema = new Schema({
+var ArtistSchema = new Schema({
    name: String,
    id: String,
    score: Number
 });
 
-mongoose.model('Song', SongSchema);
-
-
-
-
+mongoose.model('Artist', ArtistSchema);

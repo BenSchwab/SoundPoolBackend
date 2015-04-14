@@ -9,9 +9,12 @@ html( lang="en" )
          .row
             .col-xs-4(style="padding: 5px;")
                h3 Playlists
-               ul
+               form(action="rateplaylist" method="POST")
                   each val in playlists
-                     li= val.name
+                     input(type="radio" name="playlistID" value=val.id)
+                     div= val.name
+                     br
+                  input(type="submit" value="Submit")
             .col-xs-4(style="padding: 5px;")
                h3 Songs
                .row
@@ -54,4 +57,4 @@ html( lang="en" )
                      button Like
                      button Dislike
                      button Hate
-
+      script()
