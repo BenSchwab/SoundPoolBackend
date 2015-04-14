@@ -2,14 +2,16 @@ var express = require('express');
 var router = express.Router();
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
-
+var expressSession = require('express-session');
 
 var auth = require('../modules/auth');
+
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 
 
 
 //console.log(auth);
-
 
 /* GET Login page. */
 router.get('/', function(req, res, next) {
@@ -18,6 +20,7 @@ router.get('/', function(req, res, next) {
   var state = auth.generateRandomString(16);
   console.log(auth.stateKey+" "+state);
   res.cookie(auth.stateKey, auth.state);
+
 
   // your application requests authorization
   var scope = 'user-read-private user-read-email playlist-read-private';
