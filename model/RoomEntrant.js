@@ -3,10 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var RoomSchema = new Schema({
-   name: String,
-   id: String,
-   numSongs: Number,
-   open: Boolean
+   userID: String,
+   roomID: String,
+   profileID: Number
 });
 
 mongoose.model('Room', RoomSchema);

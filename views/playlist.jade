@@ -8,53 +8,53 @@ html( lang="en" )
             h1 Profile Title
          .row
             .col-xs-4(style="padding: 5px;")
-               h3 Playlists
+               h3 Choose a seed playlist
                form(action="rateplaylist" method="POST")
                   each val in playlists
                      input(type="radio" name="playlistID" value=val.id)
-                     div= val.name
+                     span= val.name
                      br
                   input(type="submit" value="Submit")
-            .col-xs-4(style="padding: 5px;")
-               h3 Songs
-               .row
-                  form
-                     .form-group
-                        label(for="songInput") Song Title
-                        input(type="text" class="form-control" placeholder="Song title" id="songInput")
-                     button Submit
-             .col-xs-4(style="padding: 5px;")
-               h3 Genres
-               .row
-                  form
-                     .form-group
-                        label Genre
-                        input(type="text" class="form-control" placeholder="Song title")
-                     button Love
-                     button Like
-                     button Dislike
-                     button Hate
-         .row
-            .col-xs-6
-               h3 Artists
-               .row
-                  form
-                     .form-group
-                        label Genre
-                        input(type="text" class="form-control" placeholder="Song title")
-                     button Love
-                     button Like
-                     button Dislike
-                     button Hate
-            .col-xs-6
-               h3 Albums
-               .row
-                  form
-                     .form-group
-                        label Genre
-                        input(type="text" class="form-control" placeholder="Song title")
-                     button Love
-                     button Like
-                     button Dislike
-                     button Hate
+         //-    .col-xs-4(style="padding: 5px;")
+         //-       h3 Songs
+         //-       .row
+         //-          form
+         //-             .form-group
+         //-                label(for="songInput") Song Title
+         //-                input(type="text" class="form-control" placeholder="Song title" id="songInput")
+         //-             button Submit
+         //-     .col-xs-4(style="padding: 5px;")
+         //-       h3 Genres
+         //-       .row
+         //-          form
+         //-             .form-group
+         //-                label Genre
+         //-                input(type="text" class="form-control" placeholder="Song title")
+         //-             button Love
+         //-             button Like
+         //-             button Dislike
+         //-             button Hate
+         //- .row
+         //-    .col-xs-6
+         //-       h3 Artists
+         //-       .row
+         //-          form
+         //-             .form-group
+         //-                label Genre
+         //-                input(type="text" class="form-control" placeholder="Song title")
+         //-             button Love
+         //-             button Like
+         //-             button Dislike
+         //-             button Hate
+         //-    .col-xs-6
+         //-       h3 Albums
+         //-       .row
+         //-          form
+         //-             .form-group
+         //-                label Genre
+         //-                input(type="text" class="form-control" placeholder="Song title")
+         //-             button Love
+         //-             button Like
+         //-             button Dislike
+         //-             button Hate
       script()

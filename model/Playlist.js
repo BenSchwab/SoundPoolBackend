@@ -6,7 +6,8 @@ var PlaylistSchema = new Schema({
    name: String,
    id: String,
    score: Number,
-   userID: String
+   userID: String,
+   profileID: Number
 });
 
 mongoose.model('Playlist', PlaylistSchema);

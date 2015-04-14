@@ -1,0 +1,23 @@
+doctype html
+html( lang="en" )
+   include ./head.jade
+   body(style="padding:65px;")
+      include ./navbar.jade
+      div(class = ['container'])
+         .row
+            .col-xs-6(style="padding: 5px;")
+               h2 Start a SongPool
+               form()
+                  label
+                  input(type="text" placeHolder="New room name" class=["form-control"])
+                  input(type="submit" value="Submit" class=["btn"])
+
+            .col-xs-6(style="padding: 5px;")
+               h2 Join active SongPool
+               ul
+                  a() room one
+                  br
+                  a() room two
+                  br
+                  a() room three
+      script(src="")

@@ -60,7 +60,8 @@ var enterRoom = require('./routes/enterRoom.js');
 
 //posts
 var ratesong = require('./routePost/rateSong');
-var rateplaylist = require('./routePost/ratePlaylist');
+
+
 
 
 //Load modules
@@ -101,7 +102,16 @@ app.use('/callback', authCallback);
 
 app.use('/ratesong', ratesong);
 
+var rateplaylist = require('./routePost/ratePlaylist');
 app.use('/rateplaylist', rateplaylist);
+
+app.use('/enterroom', enterRoom);
+
+var createprofile = require('./routePost/createProfile');
+app.use('/createprofile', createprofile);
+
+var editprofile = require('./routes/editProfile');
+app.use('/editProfile:listid', editprofile);
 
 
 
@@ -112,29 +122,8 @@ app.get('/react', function(req, res){
 });
 
 
-app.get('/playlists/', function(req, res) {
-   var id = req.session.userId;
-   UserController.get(id,function(err, user){
-      console.log("In playlists route: " + user.id);
-      SpotifyWebApi.setToken(user.accessToken);
-      SpotifyWebApi.spotifyApi.getUserPlaylists(id).then(function(data) {
-          //res.send("hello world of spotify");
-          //console.log('Retrieved playlists', data.body);
-          var playlists = data.body.items;
-          res.render('playlist', { playlists: playlists});
-          console.log(playlists);
-        },function(err) {
-          res.send("Errored :(")
-          console.log('Something went wrong!', err);
-          });
-   });
-
+app.get('/editProfile:listid', function(req, res) {
 
 });
-
-
-
-
-
 
 var server = app.listen(8888);

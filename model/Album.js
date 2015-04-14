@@ -5,7 +5,9 @@ var Schema = mongoose.Schema;
 var AlbumSchema = new Schema({
    name: String,
    id: String,
-   score: Number
+   score: Number,
+   userID: String,
+   profileID: String
 });
 
 mongoose.model('Album', AlbumSchema);

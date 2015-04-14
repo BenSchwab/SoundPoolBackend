@@ -5,8 +5,7 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
    display_name: String,
    id: String,
-   accessToken: String,
-   profiles: [{type: Schema.Types.ObjectId, ref: 'Profile'}]
+   accessToken: String
 });
 
 mongoose.model('User', UserSchema);

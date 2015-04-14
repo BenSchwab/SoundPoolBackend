@@ -74,21 +74,21 @@ router.get('/', function(req, res) {
           console.log("In the new auth handles");
           console.log("Set cookie session : "+body.id);
           req.session.userId = body.id;
-
+          var uController = UserController(body.id);
           //Get the user from the id
-          UserController.get(body.id, function(err, user){
+          uController.get(body.id, function(err, user){
               if(!user){
                 //create the user if necessary
-                  UserController.create({'id':body.id,'display_name':body.display_name, 'accessToken':access_token},function(err,user){
+                  uController.create({'id':body.id,'display_name':body.display_name, 'accessToken':access_token},function(err,user){
                     if(err) return console.error(err);
-                    console.log("saved new user")
+                    console.log("saved new user");
                   });
               }
               else{
                 console.log("Found user!: "+user.id);
               }
 
-              res.redirect('/profiles')
+              res.redirect('/profiles');
               console.log(user);
            });
 
@@ -100,8 +100,7 @@ router.get('/', function(req, res) {
           }));
       }
     });
-  //}
-});
+  });
 
 
 

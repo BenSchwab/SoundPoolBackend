@@ -3,12 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProfileSchema = new Schema({
-   display_name: String,
+   name: String,
    id: String,
-   songs: [{type: Schema.Types.ObjectId, ref: 'Song'}],
-   artists: [{type: Schema.Types.ObjectId, ref: 'Artist'}],
-   albums: [{type: Schema.Types.ObjectId, ref: 'Album'}],
-   genres: [{type: Schema.Types.ObjectId, ref: 'Genre'}]
+   userID: String
 });
 
 mongoose.model('Profile', ProfileSchema);
