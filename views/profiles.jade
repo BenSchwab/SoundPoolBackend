@@ -5,17 +5,21 @@ html( lang="en" )
       include ./navbar.jade
       div(class = ['container'])
          .row
-            .col-xs-4(style="padding: 5px;" class=["col-offset-6"])
+            div(style="padding: 5px;" class=["col-lg-6 col-centered"])
+               h1 Manage Profiles
+         .row
+            div(style="padding: 5px;" class=["col-lg-6 col-centered"])
                form(action="createprofile" method="POST")
                   .form-group
                      label
-                     input(type="text" placeHolder="New profile name" name="profileName" class=["form-control"])
-                     input(type="submit" value="Submit" class=["btn btn-primary"])
+                     input(type="text" placeHolder="New profile name" name="profileName" class=["form-control"] required)
+                     input(type="submit" value="Submit" class=["btn btn-primary"] style="margin-top:5px")
          .row
-            h1 Your profiles
-            ul
-               each val in profiles
-                  div
-                     a(href='/editProfile:'+val.id)=val.name
+             div(style="padding: 5px;" class=["col-lg-6 col-centered"])
+               h3 Your profiles
+               ul
+                  each val in profiles
+                     div
+                        a(href='/editProfile?playlistID='+val.id)=val.name
 
 

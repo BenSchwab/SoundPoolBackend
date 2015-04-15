@@ -9,6 +9,10 @@ var RoomSchema = new Schema({
    open: Boolean
 });
 
+RoomSchema.methods.findEntrants = function (cb) {
+  return this.model('RoomEntrant').find({ roomId: this.id}, cb);
+};
+
 mongoose.model('Room', RoomSchema);
 
 

@@ -4,17 +4,15 @@ html( lang="en" )
    body(style="padding:65px;")
       include ./navbar.jade
       div(class = ['container'])
-         .row
-            h1 Profile Title
-         .row
-            .col-xs-4(style="padding: 5px;")
-               h3 Choose a seed playlist
-               form(action="rateplaylist" method="POST")
-                  each val in playlists
-                     input(type="radio" name="playlistID" value=val.id)
-                     span= val.name
-                     br
-                  input(type="submit" value="Submit")
+         .col-xs-6(style="padding: 5px;" class=['col-centered'])
+            h1=Edit Playlist
+            h3 Choose a seed playlist
+            form(action="rateplaylist" method="POST")
+               each val in playlists
+                  input(type="radio" name="playlistID" value=val.id)
+                  span= val.name
+                  br
+               input(type="submit" value="Submit" class=["btn btn-primary"])
          //-    .col-xs-4(style="padding: 5px;")
          //-       h3 Songs
          //-       .row

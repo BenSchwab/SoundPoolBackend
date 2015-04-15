@@ -15,6 +15,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+
+
 //var UserController = require('./controllers/Users');
 
 //var MongooseDB = require('./model/Mongoose');
@@ -50,6 +52,9 @@ require('./model/Genre');
 require('./model/Song');
 require('./model/Profile');
 require('./model/User');
+require('./model/Room');
+require('./model/RoomEntrant');
+
 
 //Boostrap Routers
 var index = require('./routes/index');
@@ -62,12 +67,11 @@ var enterRoom = require('./routes/enterRoom.js');
 var ratesong = require('./routePost/rateSong');
 
 
-
-
 //Load modules
 var requirejs = require('requirejs');
 var SpotifyWebApi = require('./modules/SpotifyApiModule.js');
 var UserController = require('./controllers/Users');
+var WebSocketServer = require('./modules/WebSocketManager');
 
 
 
@@ -111,8 +115,16 @@ var createprofile = require('./routePost/createProfile');
 app.use('/createprofile', createprofile);
 
 var editprofile = require('./routes/editProfile');
-app.use('/editProfile:listid', editprofile);
+app.use('/editProfile', editprofile);
 
+var createRoom = require('./routePost/createRoom');
+app.use('/createRoom', createRoom);
+
+var room = require('./routes/room');
+app.use('/room', room);
+
+var room = require('./routes/waitingRoom');
+app.use('/waitingRoom', room);
 
 
 
@@ -122,8 +134,57 @@ app.get('/react', function(req, res){
 });
 
 
-app.get('/editProfile:listid', function(req, res) {
-
-});
-
 var server = app.listen(8888);
+
+
+
+// // note, io.listen() will create a http server for you
+// var io = require('socket.io').listen(8080);
+
+// io.sockets.on('connection', function (socket) {
+//   io.sockets.emit('this', { will: 'be received by everyone' });
+
+//   socket.on('private message', function (msg) {
+//     console.log('I received a private message from ', socket.id, ' saying ', msg);
+//     // Echo private message only to the client who sent it
+//     io.socket.emit('private message', msg);
+//   });
+
+//   socket.on('disconnect', function () {
+//     // This will be received by all connected clients
+//     io.sockets.emit('user disconnected');
+//   });
+// });
+
+//Websocket handling code
+active_websockets = [];
+
+
+
+var wsServer = new WebSocketServer();
+
+app.set('wsServer', wsServer);
+
+
+
+
+// var WebSocketServer = require('ws').Server,
+//  wss = new WebSocketServer({ port: 8080 });
+// function messageRoom(tracks, room){
+//     var payload = {room:room, tracks:tracks};
+
+//     //ws.send(JSON.stringify(payload));
+// }
+
+// //open up a websocket
+// wss.on('connection', function connection(ws) {
+//    active_websockets.push();
+//    ws.on('message', function incoming(message) {
+//        console.log('received: %s', message);
+//        ws.send(JSON.stringify({roomID: 123, playlist:["123124", "1314123", "124123123"]}));
+//    });
+//    ws.on('close', function close() {
+//       console.log("Socket Closed");
+//    });
+
+// });

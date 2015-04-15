@@ -21,8 +21,15 @@ UserController = function(id) {
       },
       createProfile: function(name, callback){
          Profile.count({userID: userId}, function(err, count){
-            var newProfile = Profile({userID: userId, id: count, name: name});
+            var newProfile = Profile({userID: userId, id: ''+count, name: name});
             newProfile.save(callback);
+         });
+      },
+      getProfile: function(pID, callback){
+         console.log({'id':pID, 'userID': userId});
+         Profile.findOne({'id':pID, 'userID': userId}, function(err, profile){
+            if(err) console.log(err);
+            callback(profile);
          });
       }
    };

@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var Playlist = mongoose.model('Playlist');
 var SpotifyWebApi = require('../modules/SpotifyApiModule.js');
-var UserController = require('../controllers/Users');
 
 
 Controller = {
@@ -14,11 +13,11 @@ Controller = {
    },
    getSongs: function(userID, playlistID, callback){
 
-      SpotifyWebApi.setToken()
+      //SpotifyWebApi.setToken()
 
    }
 
-}
+};
 
 
 module.exports = Controller;

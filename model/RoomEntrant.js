@@ -2,13 +2,14 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var RoomSchema = new Schema({
+var RoomEntrant = new Schema({
+   name: String,
    userID: String,
    roomID: String,
    profileID: Number
 });
 
-mongoose.model('Room', RoomSchema);
+mongoose.model('RoomEntrant', RoomEntrant);
 
 
 

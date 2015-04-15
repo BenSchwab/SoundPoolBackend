@@ -1,0 +1,17 @@
+//similar to room, but only show users and a btn ... blahhhhhhh
+
+html( lang="en" )
+   include ./head.jade
+   include ./navbar.jade
+
+   body(style="padding:65px;")
+      div(id="content")
+         .row
+            .col-lg-7(style="padding: 5px;" class=["col-centered"])
+               h1(style="display: inline")=room.name
+               h6()=room.numSongs + " songs."
+               h5() This room is open.
+               a(href="/closeRoom?id="+room.id class="btn btn-danger" sytle="margin-left: 20px") Close room
+               h4 Other Users in Room
+               ul(id="otherUsers")
+      script(src='javascript/waitingRoom.js')

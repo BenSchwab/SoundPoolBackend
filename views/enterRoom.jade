@@ -5,19 +5,25 @@ html( lang="en" )
       include ./navbar.jade
       div(class = ['container'])
          .row
-            .col-xs-6(style="padding: 5px;")
+            .col-lg-7(style="padding: 5px;" class=["col-centered"])
                h2 Start a SongPool
-               form()
+               form(action="createRoom" method="POST")
                   label
-                  input(type="text" placeHolder="New room name" class=["form-control"])
-                  input(type="submit" value="Submit" class=["btn"])
-
-            .col-xs-6(style="padding: 5px;")
-               h2 Join active SongPool
+                  input(type="text" placeHolder="New room name" class=["form-control"] name="roomName" required)
+                  input(type="number" placeHolder="Number of songs" class=["form-control"] name="numSongs" required)
+                  input(type="submit" value="Create" class=["btn btn-primary"] style="margin-top:5px")
+               div(class="form-group" style="margin-top:35px")
+                 label(for="select" class="control-label") Choose profile to enter in pool
+                 select(class="form-control" id="select")
+                  option 1
+                  option 2
+                  option sdf
+                  option asdf
+                  option asdf23
+               h2(style="margin-top:20px") Join open SongPool
                ul
-                  a() room one
-                  br
-                  a() room two
-                  br
-                  a() room three
+                  each room in rooms
+                     a(href="/waitingRoom?id="+room.id)=room.name
+                     br
+
       script(src="")
