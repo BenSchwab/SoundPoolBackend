@@ -5,11 +5,14 @@ var RoomController = require("../controllers/RoomController");
 var rController = RoomController();
 var active_websockets = [];
 
+var that;
+
 function WebSocketManager(server){
    var WebSocketServer = require('ws').Server;
    var wss = new WebSocketServer({ server: server });
+   that = this;
 
-   var roomTracks = {};
+   this.roomTracks = {};
 
 
    var clearOutClosedConnection = function(ws){
@@ -29,7 +32,7 @@ function WebSocketManager(server){
 
    this.messageRoomPlaylist  = function(roomID, tracks){
        var con = this.getConnectionsForRoom(roomID);
-       roomTracks[roomID] = tracks;
+       this.roomTracks[roomID] = tracks;
        con.forEach(function(connection){
           console.log("messaging connection "+roomID);
           sendPlaylist(tracks, connection.ws);
@@ -54,6 +57,12 @@ function WebSocketManager(server){
           closeRoom(roomID, connection.ws);
       });
    };
+
+   this.checkForSongs = function(roomID,ws){
+    if(roomID in this.roomTracks){
+      sendPlaylist(roomTracks[roomID],ws);
+    }
+  };
 
    // this.sendPlaylist = function(room, playlist){
    //     var con = this.getConnectionsForRoom(roomID);
@@ -86,19 +95,13 @@ function Connection(roomID, ws){
       this.ws = ws;
 }
 
-function checkForSongs(roomID,ws){
-  if(roomID in roomTracks){
-    sendPlaylist(roomTracks[roomID],ws);
-  }
-}
-
 
 function handleMessage(msg, ws){
   console.log("Handling message");
   var message = JSON.parse(msg);
   if(message.action == 'registerWait'){
       registerWaitlistSocket(message.roomID, ws);
-      checkForSongs(message.roomID, ws);
+      that.checkForSongs(message.roomID, ws);
   }
   else if(message.action == 'getRoomUsers'){
       var roomID = message.roomID;
