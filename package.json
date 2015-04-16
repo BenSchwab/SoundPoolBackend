@@ -42,5 +42,8 @@
   "bugs": {
     "url": "https://github.com/BenSchwab/SoundPoolBackend/issues"
   },
-  "homepage": "https://github.com/BenSchwab/SoundPoolBackend"
+  "homepage": "https://github.com/BenSchwab/SoundPoolBackend",
+  "engines": {
+    "node": "0.12.1"
+  }
 }
