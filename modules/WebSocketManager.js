@@ -5,9 +5,9 @@ var RoomController = require("../controllers/RoomController");
 var rController = RoomController();
 var active_websockets = [];
 
-function WebSocketManager(){
+function WebSocketManager(server){
    var WebSocketServer = require('ws').Server;
-   var wss = new WebSocketServer({ port: 8080 });
+   var wss = new WebSocketServer({ server: server });
 
 
    var clearOutClosedConnection = function(ws){

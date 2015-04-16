@@ -166,7 +166,7 @@ app.set('PlayListManager', PlayListManager);
 
 
 
-var wsServer = new WebSocketServer();
+var wsServer = new WebSocketServer(server);
 app.set('wsServer', wsServer);
 
 
