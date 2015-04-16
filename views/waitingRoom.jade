@@ -11,7 +11,7 @@ html( lang="en" )
                h1(style="display: inline")=room.name
                h6()=room.numSongs + " songs."
                h5() This room is open.
-               a(href="/closeRoom?id="+room.id class="btn btn-danger" sytle="margin-left: 20px") Close room
+               a(href="/closeRoom?id="+room.id class="btn btn-danger" sytle="margin-left: 20px") Close room and start Pool
                h4 Other Users in Room
                ul(id="otherUsers")
       script(src='javascript/waitingRoom.js')

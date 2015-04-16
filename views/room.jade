@@ -5,31 +5,24 @@ html( lang="en" )
    body(style="padding:65px;")
       div(id="content")
          .row
-            .col-xs-4(class=["col-centered"])
-               h1(style="display: inline") Room Title
-               span(class="btn btn-danger" sytle="margin-left: 20px") Open
+            .col-lg-7(class=["col-centered"])
+               h1(style="display: inline")=room.name
+               h6 Please wait while we build the playlist...
          .row
-            .col-xs-6
-               div(class="panel")
-                  h3(id="songName") Song name
-                  h4(id="artistName") Artist name
-                  h5(id="albumName") Album name
-                  img(id="albumArt" src="http://albumartcollection.com/wp-content/uploads/2011/07/summer-album-art.jpg" style="width: 100px; height: 100px")
-               div
-                  audio(id="playbox" controls="controls")
-            .col-xs-6
-               h3 Song Queue
-               ul
-                  li Some song
-                  li Some song
-                  li Some song
+            .col-lg-7.col-centered
+               div(class="panel col-lg-6" style="padding: 20px")
+                  h3(id="songName")
+                  h4(id="artistName")
+                  h5(id="albumName")
+                  img(id="albumArt" src="" style="width: 100px; height: 100px")
+                  div
+                     audio(id="playbox" controls="controls")
+               div(class="panel" style="padding-left: 20px")
+                  h3 Song Queue
+                  div(id="queue" style="height: 200px; overflow-y: scroll;")
          .row
             .col-xs-4(class=["col-centered"])
                h4 Users in Room
-               ul
-                  li UserOne
-                  li UserTwo
-                  li Userthree
-      //script(src="vendor/howler.js")
-      //script(src='build/helloworld.js')
-      script(src='javascript/sockets.js')
+               div(id="users")
+
+      script(src='javascript/room.js')

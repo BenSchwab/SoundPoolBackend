@@ -3,12 +3,21 @@ var router = express.Router();
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 
+var RoomController = require('../controllers/RoomController');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
    var server = req.app.get('wsServer');
-   console.log("session: ");
-   process.stdout.write("Getting Index");
-   res.render('room', { title: 'Hey boy', message: 'Hello there, dawg!'});
+   var userID = req.session.userId;
+   var roomID = req.param('id');
+    var rController = RoomController();
+   rController.get(roomID, function(err, room){
+      if(err) console.log(err);
+      else{
+         res.render('room', { room:room});
+      }
+
+   });
 });
 
 module.exports = router;

@@ -8,11 +8,15 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var RoomController = require('../controllers/RoomController');
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 
 router.get('/', function(req, res, next){
    var socket = req.app.get('wsServer');
    var userID = req.session.userId;
    var roomID = req.param('id');
+   var profileID = req.param('profileID');
+   console.log("profileID");
    var room;
    var rController = RoomController();
    rController.get(roomID, function(err, room){
@@ -26,15 +30,21 @@ router.get('/', function(req, res, next){
       }
       //Enter the room
       else{
-         rController.enter(room.id, userID, 0, function(err, entrant){
+            User.findOne({'id':userID},function(err, user){
+            rController.enter(room.id, user, profileID, function(err, entrant){
             if(err) console.log(err);
             console.log(entrant);
+
             //notify all room members of the new entrant
             socket.messageWaitingList(room);
 
 
          });
          res.render('waitingRoom', { room: room});
+
+
+          });
+
       }
 
    });

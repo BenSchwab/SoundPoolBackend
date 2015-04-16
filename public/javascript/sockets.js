@@ -37,34 +37,7 @@ function messageServer(){
 
   $(document).ready(function(){
 
-      var spotifyApi = new SpotifyWebApi();
 
-      var audio = document.getElementById("playbox");
-      var albumArt = $("#albumArt");
-      var songName = $("#songName");
-      var artistName =  $("#artistName");
-      var albumName = $("#albumName");
-      console.log(albumName);
-
-
-      spotifyApi.searchTracks("Sonnentanz", function(err, data) {
-        if (err) console.error(err);
-        else {
-          console.log(data);
-            setAlbumView(data.tracks.items[0]);
-        }
-      });
-
-      function setAlbumView(track){
-            var url = track.preview_url;
-            console.log(albumName);
-            albumName.text(track.album.name);
-            artistName.text(track.artists[0].name);
-            albumArt.attr('src', track.album.images[0].url);
-            songName.text(track.name);
-            audio.src =  url+'.mp3';
-            audio.play();
-      }
 
 });
 

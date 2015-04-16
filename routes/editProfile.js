@@ -5,6 +5,7 @@ var User = mongoose.model('User');
 var UserController = require('../controllers/Users');
 var PlaylistController = require('../controllers/Playlists');
 var SpotifyWebApi = require('../modules/SpotifyApiModule.js');
+var Playlist = mongoose.model('Playlist');
 
 var fs = require('fs');
 var querystring = require('querystring');
@@ -16,18 +17,21 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 router.get('/', function(req, res, next){
-   var listID = req.param('playlistID');
-   //console.log(req.param);
-   console.log("listID " +listID);
+   var profileID = req.param('playlistID');
+
+
+   console.log("profileID " +profileID);
    var id = req.session.userId;
    var uController = UserController(id);
    var pController = PlaylistController;
 
    var playlists;
    var profile;
+   var lovedLists;
+   var hatedLists;
 
    var profilePromise = new Promise(function(resolve, reject){
-      uController.getProfile(listID, function(err, prof){
+      uController.getProfile(profileID, function(prof){
         console.log("prof: "+prof);
           profile = prof;
           resolve();
@@ -35,10 +39,11 @@ router.get('/', function(req, res, next){
    });
    var playListPromise = new Promise(function(resolve, reject){
       uController.get(id,function(err, user){
-          SpotifyWebApi.setToken(user.accessToken);
-          SpotifyWebApi.spotifyApi.getUserPlaylists(id).then(function(data) {
-          //res.send("hello world of spotify");
-          //console.log('Retrieved playlists', data.body);
+          var api = new SpotifyWebApi(user);
+
+          api.spotifyApi.getUserPlaylists(id).then(function(data) {
+          console.log(data.body.items);
+
           playlists = data.body.items;
           resolve();
         },function(err) {
@@ -48,10 +53,26 @@ router.get('/', function(req, res, next){
       });
    });
 
-   var promises = [profilePromise, playListPromise];
+   var lovedListPromise = new Promise(function(resolve, reject){
+      Playlist.find({rating:"love",profileID:profileID,userID:id}, function(err, playlists){
+        if(err) console.log(err);
+        lovedLists = playlists;
+        console.log("loved size: "+ lovedLists);
+        resolve();
+      });
+   });
+
+  var hatedListPromise = new Promise(function(resolve, reject){
+       Playlist.find({profileID:profileID,rating:"hate",userID:id}, function(err, playlists){
+        hatedLists = playlists;
+        resolve();
+      });
+   });
+
+   var promises = [profilePromise, playListPromise, lovedListPromise, hatedListPromise];
    Promise.all(promises).then(function(values){
        console.log("Promises have resolved");
-       res.render('playlist', { profile: profile, playlists: playlists});
+       res.render('playlist', { profile: profile, playlists: playlists, lovedLists:lovedLists, hatedLists:hatedLists});
    });
 
 });

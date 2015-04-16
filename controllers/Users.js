@@ -26,7 +26,6 @@ UserController = function(id) {
          });
       },
       getProfile: function(pID, callback){
-         console.log({'id':pID, 'userID': userId});
          Profile.findOne({'id':pID, 'userID': userId}, function(err, profile){
             if(err) console.log(err);
             callback(profile);

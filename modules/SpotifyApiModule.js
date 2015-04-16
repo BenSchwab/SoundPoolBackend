@@ -5,15 +5,17 @@ var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 var SpotifyWebApi = require('spotify-web-api-node');
 
 
-var api = {
-   spotifyApi: new SpotifyWebApi({
+var SpotifyApi = function(user){
+   this.spotifyApi = new SpotifyWebApi({
      clientId : client_id,
      clientSecret : client_secret,
      redirectUri : redirect_uri
-   }),
-   setToken: function(token){
-      this.spotifyApi.setAccessToken(token);
+   });
+   if(user){
+      this.spotifyApi.setAccessToken(user.accessToken);
    }
-}
+};
 
-module.exports = api;
+
+
+module.exports = SpotifyApi;

@@ -1,3 +1,6 @@
+var express = require('express');
+
+
 var RoomController = require("../controllers/RoomController");
 var rController = RoomController();
 var active_websockets = [];
@@ -36,6 +39,21 @@ function WebSocketManager(){
           refreshRoomUsers(room.id, connection.ws);
       });
    };
+   this.closeOutRoom = function(roomID){
+      var con = this.getConnectionsForRoom(roomID);
+       con.forEach(function(connection){
+          console.log("messaging connection "+roomID);
+          closeRoom(roomID, connection.ws);
+      });
+   };
+
+   this.sendPlaylist = function(room, playlist){
+       var con = this.getConnectionsForRoom(roomID);
+        con.forEach(function(connection){
+          console.log("messaging connection "+roomID);
+          closeRoom(roomID, connection.ws);
+      });
+   };
 
 
    //Turn on the connection.
@@ -71,12 +89,23 @@ function handleMessage(msg, ws){
       var roomID = message.roomID;
       refreshRoomUsers(roomID, ws);
   }
+  else if (message.action == 'getPlaylist'){
+    sendPlaylist(message.roomID, ws);
+  }
 }
 
 function registerWaitlistSocket(roomID, ws){
    console.log("registered waitlist socket");
    active_websockets.push(new Connection(roomID, ws));
 
+}
+
+function sendPlaylist(playlist, ws){
+  ws.send(JSON.stringify({action:'playlistUpdate', body:playlist}));
+}
+
+function closeRoom(roomID, ws){
+  ws.send(JSON.stringify({action:'roomClose'}));
 }
 
 function refreshRoomUsers(roomID, ws){

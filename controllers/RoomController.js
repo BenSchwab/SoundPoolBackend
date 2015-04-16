@@ -19,8 +19,8 @@ RoomController = function() {
       getAllOpen: function(callback){
          Room.find({'open':true},callback);
       },
-      enter: function(roomID, userID, profileID, callback){
-         var roomEntrant = new RoomEntrant({roomID:roomID,userID:userID, profileID: profileID });
+      enter: function(roomID, user, profileID, callback){
+         var roomEntrant = new RoomEntrant({roomID:roomID,userID:user.id,name:user.display_name, profileID: profileID });
          roomEntrant.save(callback);
       },
       getEntrants: function(roomID, callback){

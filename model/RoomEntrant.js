@@ -6,7 +6,7 @@ var RoomEntrant = new Schema({
    name: String,
    userID: String,
    roomID: String,
-   profileID: Number
+   profileID: String
 });
 
 mongoose.model('RoomEntrant', RoomEntrant);

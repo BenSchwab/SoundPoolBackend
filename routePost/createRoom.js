@@ -16,12 +16,14 @@ var RoomController = require('../controllers/RoomController');
 router.post('/', function(req, res) {
     var roomName = req.body.roomName;
     var numSongs = req.body.numSongs;
+    var profileID = req.body.profile;
+    console.log("Create room profileID: "+profileID);
     var rController = RoomController();
     rController.create(roomName, numSongs, function(err, room){
       if(err) console.log(err);
       else{
          console.log("prof: "+ room);
-         res.redirect('/waitingRoom?id='+room.id);
+         res.redirect('/waitingRoom?id='+room.id+"&profileID="+profileID);
       }
 
     });

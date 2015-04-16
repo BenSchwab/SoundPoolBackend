@@ -7,7 +7,7 @@ var UserController = require('../controllers/Users');
 
 router.get('/', function(req, res, next){
 
-  var uController = UserController(req.session.userID);
+  var uController = UserController(req.session.userId);
   uController.getProfiles(function(profiles){
     res.render('profiles', { profiles: profiles});
   });

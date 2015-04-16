@@ -126,6 +126,9 @@ app.use('/room', room);
 var room = require('./routes/waitingRoom');
 app.use('/waitingRoom', room);
 
+var closeRoom = require('./routePost/closeRoom');
+app.use('/closeRoom', closeRoom);
+
 
 
 app.get('/react', function(req, res){
@@ -138,53 +141,73 @@ var server = app.listen(8888);
 
 
 
-// // note, io.listen() will create a http server for you
-// var io = require('socket.io').listen(8080);
+var PlayListManager = {
+   playlistManager:{0:[],1:[]},
+   getPlayList: function(roomID){
+      return playlistManager.roomID;
+   },
+   setPlaylist: function(playlist, roomID){
+      this.playlistManager.roomID = playlist;
+   }
+};
 
-// io.sockets.on('connection', function (socket) {
-//   io.sockets.emit('this', { will: 'be received by everyone' });
+app.set('PlayListManager', PlayListManager);
 
-//   socket.on('private message', function (msg) {
-//     console.log('I received a private message from ', socket.id, ' saying ', msg);
-//     // Echo private message only to the client who sent it
-//     io.socket.emit('private message', msg);
-//   });
 
-//   socket.on('disconnect', function () {
-//     // This will be received by all connected clients
-//     io.sockets.emit('user disconnected');
-//   });
-// });
 
-//Websocket handling code
-active_websockets = [];
+
 
 
 
 var wsServer = new WebSocketServer();
-
 app.set('wsServer', wsServer);
 
 
 
+// var Worker = require('webworker-threads').Worker;
+// // var w = new Worker('worker.js'); // Standard API
 
-// var WebSocketServer = require('ws').Server,
-//  wss = new WebSocketServer({ port: 8080 });
-// function messageRoom(tracks, room){
-//     var payload = {room:room, tracks:tracks};
+// // You may also pass in a function:
+// var worker = new Worker(function(){
+//   postMessage("I'm working before postMessage('ali').");
 
-//     //ws.send(JSON.stringify(payload));
-// }
 
-// //open up a websocket
-// wss.on('connection', function connection(ws) {
-//    active_websockets.push();
-//    ws.on('message', function incoming(message) {
-//        console.log('received: %s', message);
-//        ws.send(JSON.stringify({roomID: 123, playlist:["123124", "1314123", "124123123"]}));
-//    });
-//    ws.on('close', function close() {
-//       console.log("Socket Closed");
-//    });
-
+//   this.onmessage = function(event) {
+//     postMessage('Hi ' + event.data);
+//     self.close();
+//   };
 // });
+// worker.onmessage = function(event) {
+//   console.log("Worker said : " + event.data);
+// };
+// worker.postMessage('ali');
+
+// var Worker = require('webworker-threads').Worker;
+
+// var fibo = new Worker(function() {
+//     function fibo (n) {
+//       return n > 1 ? fibo(n - 1) + fibo(n - 2) : 1;
+//     }
+//     this.onmessage = function (event) {
+//       postMessage(fibo(event.data));
+//     };
+//   });
+
+// fibo.onmessage = function (event) {
+//     console.log('fib(40) = ' + event.data);
+// };
+// fibo.postMessage(40);
+
+
+var Worker = require('webworker-threads').Worker;
+
+var fibo = new Worker('workers/fibo.js');
+
+fibo.onmessage = function (event) {
+    console.log('fib(40) = ' + event.data);
+};
+fibo.postMessage(40);
+
+
+
+

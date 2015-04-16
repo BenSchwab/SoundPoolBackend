@@ -85,6 +85,8 @@ router.get('/', function(req, res) {
                   });
               }
               else{
+                user.accessToken = access_token;
+                user.save();
                 console.log("Found user!: "+user.id);
               }
 
