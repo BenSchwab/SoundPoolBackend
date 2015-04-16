@@ -9,6 +9,8 @@ function WebSocketManager(server){
    var WebSocketServer = require('ws').Server;
    var wss = new WebSocketServer({ server: server });
 
+   var roomTracks = {};
+
 
    var clearOutClosedConnection = function(ws){
       active_websockets = active_websockets.filter(function(conn){
@@ -27,6 +29,7 @@ function WebSocketManager(server){
 
    this.messageRoomPlaylist  = function(roomID, tracks){
        var con = this.getConnectionsForRoom(roomID);
+       roomTracks[roomID] = tracks;
        con.forEach(function(connection){
           console.log("messaging connection "+roomID);
           sendPlaylist(tracks, connection.ws);
@@ -83,12 +86,19 @@ function Connection(roomID, ws){
       this.ws = ws;
 }
 
+function checkForSongs(roomID,ws){
+  if(roomID in roomTracks){
+    sendPlaylist(roomTracks[roomID],ws);
+  }
+}
+
 
 function handleMessage(msg, ws){
   console.log("Handling message");
   var message = JSON.parse(msg);
   if(message.action == 'registerWait'){
       registerWaitlistSocket(message.roomID, ws);
+      checkForSongs(message.roomID, ws);
   }
   else if(message.action == 'getRoomUsers'){
       var roomID = message.roomID;
