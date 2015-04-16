@@ -18,7 +18,8 @@ router.get('/', function(req, res) {
   var stateKey = 'spotify_auth_state';
   var client_id = '1adddf5d5b1c4e638dbcc6ea8f2c7503'; // Your client id
   var client_secret = '3a48222e35d04373b191bdd77344fb0c'; // Your client secret
-  var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+  //var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+  var redirect_uri = 'http://still-depths-3109.herokuapp.com/callback';
 
   process.stdout.write("In callback route");
 
