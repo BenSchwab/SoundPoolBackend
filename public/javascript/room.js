@@ -4,7 +4,7 @@ console.log("room id "+roomID);
 
 if ("WebSocket" in window)
   {
-     var ws = new WebSocket("ws://localhost:8080");
+     var ws = new WebSocket("ws://still-depths-3109.herokuapp.com/:8080");
      ws.onopen = function()
      {
         ws.send(JSON.stringify({action:"registerWait", roomID: roomID}));
