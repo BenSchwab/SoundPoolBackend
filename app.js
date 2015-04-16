@@ -137,7 +137,9 @@ app.get('/react', function(req, res){
 });
 
 
-var server = app.listen(8888);
+//var server = app.listen(8888);
+
+app.set('port', (process.env.PORT || 5000));
 
 
 
