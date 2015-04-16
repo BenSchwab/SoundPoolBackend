@@ -60,7 +60,7 @@ function WebSocketManager(server){
 
    this.checkForSongs = function(roomID,ws){
     if(roomID in this.roomTracks){
-      sendPlaylist(roomTracks[roomID],ws);
+      sendPlaylist(this.roomTracks[roomID],ws);
     }
   };
 
