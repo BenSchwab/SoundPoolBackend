@@ -44,7 +44,10 @@ router.get('/', function(req, res, next){
           api.spotifyApi.getUserPlaylists(id).then(function(data) {
           console.log(data.body.items);
 
-          playlists = data.body.items;
+          playlists = data.body.items.filter(function(pl){
+            return pl.owner.id == id;
+          });
+
           resolve();
         },function(err) {
           res.send("Errored :(");

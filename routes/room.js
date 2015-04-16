@@ -14,7 +14,11 @@ router.get('/', function(req, res, next) {
    rController.get(roomID, function(err, room){
       if(err) console.log(err);
       else{
-         res.render('room', { room:room});
+         room.findEntrants(function(err, entrants){
+            res.render('room', { room:room, entrants: entrants});
+         });
+
+
       }
 
    });

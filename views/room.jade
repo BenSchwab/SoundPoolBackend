@@ -7,7 +7,7 @@ html( lang="en" )
          .row
             .col-lg-7(class=["col-centered"])
                h1(style="display: inline")=room.name
-               h6 Please wait while we build the playlist...
+               h6(id="wait") Please wait while we build the playlist...
          .row
             .col-lg-7.col-centered
                div(class="panel col-lg-6" style="padding: 20px")
@@ -23,6 +23,9 @@ html( lang="en" )
          .row
             .col-xs-4(class=["col-centered"])
                h4 Users in Room
-               div(id="users")
+               ui(id="users")
+                  each e in entrants
+                     li=e.name
+
 
       script(src='javascript/room.js')

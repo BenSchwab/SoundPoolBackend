@@ -6,7 +6,8 @@ var RoomSchema = new Schema({
    name: String,
    id: String,
    numSongs: Number,
-   open: Boolean
+   open: Boolean,
+   tracks: [String]
 });
 
 RoomSchema.methods.findEntrants = function (cb) {

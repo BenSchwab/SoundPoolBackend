@@ -4,6 +4,7 @@ var SpotifyWebApi = require('../modules/SpotifyApiModule.js');
 var Schema = mongoose.Schema;
 
 var PlaylistSchema = new Schema({
+   owner: String,
    name: String,
    id: String,
    rating: String,

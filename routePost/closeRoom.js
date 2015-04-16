@@ -29,9 +29,10 @@ router.get('/', function(req, res) {
          sockets.closeOutRoom(roomID);
 
          //kick off algorithm calculation
-         var algo = new Algorithm();
-         algo.calculateOptimalPlaylist(room, function(){
-          console.log("Callback");
+         var algo = new Algorithm(sockets);
+         algo.calculateOptimalPlaylist(room, function(tracks){
+            console.log("the algorithm has finished yayy! "+tracks);
+            sockets.messageRoomPlaylist(roomID, tracks);
         });
 
          res.redirect('/room?id='+room.id);

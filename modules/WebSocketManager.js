@@ -25,9 +25,14 @@ function WebSocketManager(){
    };
 
 
-   this.messageRoom  = function(tracks, room){
-       var payload = {room:room, tracks:tracks};
-       ws.send(JSON.stringify({roomID: 123, playlist:["123124", "1314123", "124123123"]}));
+   this.messageRoomPlaylist  = function(roomID, tracks){
+       var con = this.getConnectionsForRoom(roomID);
+       con.forEach(function(connection){
+          console.log("messaging connection "+roomID);
+          sendPlaylist(tracks, connection.ws);
+      });
+       //var payload = {room:room, tracks:tracks};
+       //ws.send(JSON.stringify({roomID: 123, playlist:["123124", "1314123", "124123123"]}));
        //ws.send(JSON.stringify(payload));
       };
    this.messageWaitingList = function(room){
@@ -47,13 +52,13 @@ function WebSocketManager(){
       });
    };
 
-   this.sendPlaylist = function(room, playlist){
-       var con = this.getConnectionsForRoom(roomID);
-        con.forEach(function(connection){
-          console.log("messaging connection "+roomID);
-          closeRoom(roomID, connection.ws);
-      });
-   };
+   // this.sendPlaylist = function(room, playlist){
+   //     var con = this.getConnectionsForRoom(roomID);
+   //      con.forEach(function(connection){
+   //        console.log("messaging connection "+roomID);
+   //        sendPlaylist(playlist, connection.ws);
+   //    });
+   // };
 
 
    //Turn on the connection.
@@ -90,7 +95,7 @@ function handleMessage(msg, ws){
       refreshRoomUsers(roomID, ws);
   }
   else if (message.action == 'getPlaylist'){
-    sendPlaylist(message.roomID, ws);
+     //sendPlaylist(, ws);
   }
 }
 

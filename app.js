@@ -199,14 +199,14 @@ app.set('wsServer', wsServer);
 // fibo.postMessage(40);
 
 
-var Worker = require('webworker-threads').Worker;
+// var Worker = require('webworker-threads').Worker;
 
-var fibo = new Worker('workers/fibo.js');
+// var fibo = new Worker('workers/fibo.js');
 
-fibo.onmessage = function (event) {
-    console.log('fib(40) = ' + event.data);
-};
-fibo.postMessage(40);
+// fibo.onmessage = function (event) {
+//     console.log('fib(40) = ' + event.data);
+// };
+// fibo.postMessage(40);
 
 
 
